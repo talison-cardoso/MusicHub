@@ -3,8 +3,8 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-  <main class="container links-page">
-    <h1>Minhas redes sociais</h1>
+  <h1>Minhas redes sociais</h1>
+  <section class="links-page">
     <div class="card soundcloud">
       <img src="/soundcloud.svg" alt="Ícone do SoundCloud" />
       <a href="https://on.soundcloud.com/5VMKxLNwnRcTXskEXL">SoundCloud</a>
@@ -34,14 +34,14 @@ import Layout from '../layouts/Layout.astro';
         >TikTok</a
       >
     </div>
-  </main>
+  </section>
 </Layout>
 
 <style>
+  h1 {
+    margin-bottom: 2rem;
+  }
   .links-page {
-    h1 {
-      margin-bottom: 2rem;
-    }
     div {
       margin-bottom: 1rem;
       display: grid;

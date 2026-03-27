@@ -3,60 +3,58 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-  <main class="container">
-    <div class="profile card">
-      <div class="profile-img">
-        <img src="/profile.jpg" alt="Foto de perfil do Young Nísioo" />
-      </div>
-      <div class="profile-info">
-        <h2>Young Nísioo</h2>
-        <span class="badge">Rapper e Compositor</span>
-      </div>
-
-      <div class="stats">
-        <div>
-          <p class="number">+59</p>
-          <p class="label">MÚSICAS</p>
-        </div>
-        <div>
-          <p class="number">+6</p>
-          <p class="label">EPS</p>
-        </div>
-        <div>
-          <p class="number">+99</p>
-          <p class="label">OUVINTES MENSAIS</p>
-        </div>
-      </div>
+  <div class="profile card">
+    <div class="profile-img">
+      <img src="/profile.jpg" alt="Foto de perfil do Young Nísioo" />
+    </div>
+    <div class="profile-info">
+      <h2>Young Nísioo</h2>
+      <a href="/admin/login"><span class="badge">Rapper e Compositor</span></a>
     </div>
 
-    <div class="card about">
-      <h1>Sobre o Artista</h1>
-      <p>
-        Bem-vindo ao espaço oficial de música do rapper e compositor Young
-        Nísio, plataforma criada especialmente para aproximar o artista dos seus
-        ouvintes e tornar a sua música acessível a todos.
-      </p>
-      <p>
-        Aqui poderás encontrar e fazer download das músicas mais recentes e dos
-        projectos já lançados, tudo organizado de forma simples, rápida e
-        segura. Cada lançamento é disponibilizado directamente pelo artista,
-        garantindo autenticidade e qualidade.
-      </p>
-      <p>
-        Para além de fazeres download das músicas, esta plataforma permite que
-        conheças as redes sociais do Young Nísio, acompanhes as novidades,
-        fiques por dentro dos próximos lançamentos e estejas sempre conectado à
-        sua jornada artística.
-      </p>
-      <p>
-        Mais do que um site de downloads, este é um ponto de encontro entre o
-        artista e os seus ouvintes.
-      </p>
-      <p>
-        Explora. Faça download. Partilha. E faz parte do movimento Young Nísio.
-      </p>
+    <div class="stats">
+      <div>
+        <p class="number">+59</p>
+        <p class="label">MÚSICAS</p>
+      </div>
+      <div>
+        <p class="number">+6</p>
+        <p class="label">EPS</p>
+      </div>
+      <div>
+        <p class="number">+99</p>
+        <p class="label">OUVINTES MENSAIS</p>
+      </div>
     </div>
-  </main>
+  </div>
+
+  <div class="card about">
+    <h1>Sobre o Artista</h1>
+    <p>
+      Bem-vindo ao espaço oficial de música do rapper e compositor Young Nísio,
+      plataforma criada especialmente para aproximar o artista dos seus ouvintes
+      e tornar a sua música acessível a todos.
+    </p>
+    <p>
+      Aqui poderás encontrar e fazer download das músicas mais recentes e dos
+      projectos já lançados, tudo organizado de forma simples, rápida e segura.
+      Cada lançamento é disponibilizado directamente pelo artista, garantindo
+      autenticidade e qualidade.
+    </p>
+    <p>
+      Para além de fazeres download das músicas, esta plataforma permite que
+      conheças as redes sociais do Young Nísio, acompanhes as novidades, fiques
+      por dentro dos próximos lançamentos e estejas sempre conectado à sua
+      jornada artística.
+    </p>
+    <p>
+      Mais do que um site de downloads, este é um ponto de encontro entre o
+      artista e os seus ouvintes.
+    </p>
+    <p>
+      Explora. Faça download. Partilha. E faz parte do movimento Young Nísio.
+    </p>
+  </div>
 </Layout>
 
 <style>
@@ -151,7 +149,7 @@ import Layout from '../layouts/Layout.astro';
     p {
       font-size: 1rem;
       color: var(--text-muted);
-      line-height: 1.5rem;
+      line-height: 1.25rem;
       margin-top: 0.5rem;
       /*font-weight: 300;*/
     }
