@@ -2,6 +2,8 @@
 import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import '../styles/global.css';
+
+const pathname = new URL(Astro.request.url).pathname;
 ---
 
 <html lang="pt">
@@ -13,8 +15,8 @@ import '../styles/global.css';
     <ClientRouter />
   </head>
   <body>
-    <Header />
-    <main>
+    {!pathname.startsWith('/admin') && <Header />}
+    <main class="container">
       <slot />
     </main>
   </body>
