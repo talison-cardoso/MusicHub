@@ -1,0 +1,130 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout showHeader={false}>
+  <section class="">
+    <form class="card">
+      <h1>Criar Conta</h1>
+      <input type="text" name="username" placeholder="Ex: talodev" required />
+      <input type="password" name="password" placeholder="••••••••" required />
+      <button type="submit"> Registrar </button>
+
+      <p
+        id="error-msg"
+        class="text-red-400 text-sm hidden text-center bg-red-950/30 border border-red-900/50 p-2 rounded"
+      >
+      </p>
+
+      <p
+        id="success-msg"
+        class="text-green-400 text-sm hidden text-center bg-green-950/30 border border-green-900/50 p-2 rounded"
+      >
+      </p>
+
+      <a
+        href="/login"
+        class="text-zinc-500 text-sm text-center hover:text-zinc-300 mt-2 transition-colors"
+      >
+        Já tem uma conta? Entrar
+      </a>
+    </form>
+  </section>
+</Layout>
+
+<script>
+  const form = document.querySelector('form') as HTMLFormElement;
+  const errorMsg = document.querySelector('#error-msg');
+  const successMsg = document.querySelector('#success-msg');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Reseta estados
+    errorMsg?.classList.add('hidden');
+    successMsg?.classList.add('hidden');
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        if (successMsg) {
+          successMsg.textContent = 'Conta criada! Redirecionando...';
+          successMsg.classList.remove('hidden');
+        }
+        // Aguarda 1.5s para o usuário ler a mensagem antes de ir para o login
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 1500);
+      } else {
+        if (errorMsg) {
+          errorMsg.textContent = result.message || 'Erro ao registrar';
+          errorMsg.classList.remove('hidden');
+        }
+      }
+    } catch (err) {
+      if (errorMsg) {
+        errorMsg.textContent = 'Erro de conexão com o servidor';
+        errorMsg.classList.remove('hidden');
+      }
+    }
+  });
+</script>
+
+<style>
+  section {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: min(90%, 400px);
+    background-color: white;
+    padding: 1.25rem 1.5rem;
+    margin: 0 auto;
+
+    h1 {
+      text-align: center;
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    input {
+      padding-left: 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-color);
+      height: 3rem;
+      font-family: 'Livvic';
+      font-size: 1rem;
+
+      &:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        transition: border-color 0.3s;
+      }
+    }
+
+    button {
+      background-color: var(--primary-color);
+      height: 3rem;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+      &:hover {
+        background-color: var(--primary-hover);
+      }
+    }
+  }
+</style>
