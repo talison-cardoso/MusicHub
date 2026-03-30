@@ -1,0 +1,14 @@
+services:
+  mongodb:
+    # image: mongodb/mongodb-community-server:latest
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: talodev
+      MONGO_INITDB_ROOT_PASSWORD: pass123
+
+volumes:
+  mongodb:
