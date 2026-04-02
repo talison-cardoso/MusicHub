@@ -5,35 +5,47 @@ import Layout from '../layouts/Layout.astro';
 <Layout>
   <h1>Minhas redes sociais</h1>
   <section class="links-page">
-    <div class="card soundcloud">
+    <a
+      href="https://on.soundcloud.com/5VMKxLNwnRcTXskEXL"
+      class="card soundcloud"
+    >
       <img src="/soundcloud.svg" alt="Ícone do SoundCloud" />
-      <a href="https://on.soundcloud.com/5VMKxLNwnRcTXskEXL">SoundCloud</a>
-    </div>
-    <div class="card youtube">
+      SoundCloud
+    </a>
+
+    <a
+      href="https://youtube.com/@youngnisioo?si=NWgPvL1BfH_To2l1"
+      class="card youtube"
+    >
       <img src="/youtube.svg" alt="Ícone do YouTube" />
-      <a href="https://youtube.com/@youngnisioo?si=NWgPvL1BfH_To2l1">YouTube</a>
-    </div>
-    <div class="card facebook">
+      YouTube
+    </a>
+
+    <a href="https://www.facebook.com/share/1EvzYJNKCY/" class="card facebook">
       <img src="/facebook.svg" alt="Ícone do Facebook" />
-      <a href="https://www.facebook.com/share/1EvzYJNKCY/">Facebook</a>
-    </div>
-    <div class="card instagram">
+      Facebook
+    </a>
+
+    <a
+      href="https://www.instagram.com/ani_sio_?utm_source=qr&igsh=OTV6NGc4ZTluZW1u"
+      class="card instagram"
+    >
       <img src="/instagram.svg" alt="Ícone do Instagram" />
-      <a
-        href="https://www.instagram.com/ani_sio_?utm_source=qr&igsh=OTV6NGc4ZTluZW1u"
-        >Instagram</a
-      >
-    </div>
-    <div class="card whatsapp">
+      Instagram
+    </a>
+
+    <a href="https://wa.me/qr/BJ4AAYXZ2TYCB1" class="card whatsapp">
       <img src="/whatsapp.svg" alt="Ícone do WhatsApp" />
-      <a href="https://wa.me/qr/BJ4AAYXZ2TYCB1">Whatsapp</a>
-    </div>
-    <div class="card tiktok">
+      Whatsapp
+    </a>
+
+    <a
+      href="https://www.tiktok.com/@young_nisioo?_r=1&_t=ZS-943fKuu2vPl"
+      class="card tiktok"
+    >
       <img src="/tiktok.svg" alt="Ícone do TikTok" />
-      <a href="https://www.tiktok.com/@young_nisioo?_r=1&_t=ZS-943fKuu2vPl"
-        >TikTok</a
-      >
-    </div>
+      TikTok
+    </a>
   </section>
 </Layout>
 
@@ -42,22 +54,20 @@ import Layout from '../layouts/Layout.astro';
     margin-bottom: 2rem;
   }
   .links-page {
-    div {
+    a {
       margin-bottom: 1rem;
       display: grid;
 
       display: flex;
       align-items: center;
       justify-content: center;
+      color: white;
+      text-align: left;
 
       img {
         width: 20px;
         height: 20px;
         margin-right: 0.75rem;
-      }
-      a {
-        color: white;
-        text-align: left;
       }
     }
 
