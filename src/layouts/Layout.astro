@@ -5,15 +5,16 @@ import '../styles/global.css';
 
 const pathname = new URL(Astro.request.url).pathname;
 
-const { showHeader = true } = Astro.props;
+const { showHeader = true, title = 'Rapper Young Nísioo' } = Astro.props;
 ---
 
+<!doctype html>
 <html lang="pt">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Rapper Young Nísioo</title>
+    <title>{title}</title>
     <ClientRouter />
   </head>
   <body>
