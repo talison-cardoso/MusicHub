@@ -1,0 +1,151 @@
+---
+
+---
+
+<dialog id="music-modal">
+  <div class="modal-content">
+    <header>
+      <h2>Adicionar Música</h2>
+      <button id="close-modal" aria-label="Fechar">&times;</button>
+    </header>
+
+    <form>
+      <input type="text" name="title" placeholder="Título da Música" required />
+      <div class="file-input">
+        <label for="music-file">Escolha o arquivo</label>
+        <input type="file" id="music-file" name="file" accept="audio/*" />
+      </div>
+      <button type="submit" class="submit-btn">Enviar Música</button>
+    </form>
+  </div>
+</dialog>
+
+<style>
+  dialog {
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    margin: auto;
+    width: min(90%, 450px);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+    background: white;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  #close-modal {
+    font-size: 1.5rem;
+    color: gray;
+    display: block;
+    line-height: 1rem;
+    transition: color 0.3s;
+    &:hover {
+      color: black;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /*input[type='text'] {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+  }*/
+
+  .submit-btn {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.75rem;
+    border: none;
+  }
+
+  /*.submit-btn:hover {
+    opacity: 0.9;
+  }*/
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const modal = document.getElementById('music-modal') as HTMLDialogElement;
+    const closeBtn = document.getElementById('close-modal');
+    const form = document.querySelector('form');
+
+    closeBtn?.addEventListener('click', () => modal.close());
+
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) modal.close();
+    });
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('.submit-btn') as HTMLButtonElement;
+      const formData = new FormData(form);
+      const file = formData.get('file') as File;
+      const title = formData.get('title') as string;
+
+      if (!file || !title) return alert('Preencha todos os campos');
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Enviando...';
+
+      try {
+        // Solicitar URL Assinada ao seu servidor
+        const { signedUrl, key } = await fetch('/api/admin/get-upload-url', {
+          method: 'POST',
+          body: JSON.stringify({ fileName: file.name, fileType: file.type }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Content-Disposition': `attachment; filename="${file.name}"`,
+          },
+        }).then((res) => res.json());
+
+        const uploadRes = await fetch(signedUrl, {
+          method: 'PUT',
+          body: file,
+          headers: { 'Content-Type': file.type },
+        });
+
+        if (!uploadRes.ok) throw new Error('Falha no upload para o R2');
+        // TODO: reagir ao sucesso do upload (add faixa na tela)
+
+        const saveRes = await fetch('/api/admin/save-metadata', {
+          method: 'POST',
+          body: JSON.stringify({ title, musicKey: key }),
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (!saveRes.ok)
+          throw new Error(
+            (await saveRes.json()).message || 'Erro ao salvar no banco',
+          );
+
+        alert('Música salva com sucesso!');
+        form.reset();
+        modal?.close();
+      } catch (err) {
+        console.error(err);
+        alert('Erro no processo de upload.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Enviar Música';
+      }
+    });
+  });
+</script>
