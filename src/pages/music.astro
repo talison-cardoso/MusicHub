@@ -1,10 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import MusicCard from '../components/MusicCard.astro';
+import { Song } from '@/lib/models/Song';
+import { connectDB } from '@/lib/mongodb';
+
+await connectDB();
+const songs = await Song.find().sort({ createdAt: -1 });
 ---
 
-<Layout>
+<Layout title="Minha Biblioteca">
   <h1>Lançamentos</h1>
-  <div id="songsList">
-    <!-- As músicas vão aparecer aqui -->
+  <div class="grid">
+    {
+      songs.map((song) => (
+        <MusicCard
+          title={song.title}
+          fileKey={song.fileKey}
+          createdAt={song.createdAt}
+        />
+      ))
+    }
+
+    {songs.length === 0 && <p>Nenhuma música encontrada.</p>}
   </div>
 </Layout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem 0;
+  }
+</style>
