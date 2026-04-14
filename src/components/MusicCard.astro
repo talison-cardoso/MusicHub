@@ -10,7 +10,6 @@ const { title, fileKey, createdAt } = Astro.props;
 const BUCKET_PUBLIC_URL = 'https://pub-4acb60e77e00470a9ce80de9a5b1a069.r2.dev';
 const musicFullUrl = `${BUCKET_PUBLIC_URL}/${fileKey}`;
 
-// Formatação simples de data
 const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
   new Date(createdAt),
 );
@@ -22,93 +21,86 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
     <span>Adicionada em: {dateFormatted}</span>
   </div>
 
-  <!-- <audio controls preload="none">
-    <source src={musicFullUrl} type="audio/mpeg" />
-    Seu navegador não suporta o elemento de áudio.
-  </audio> -->
-
-  <button data-url={musicFullUrl} data-name={fileKey}>Download</button>
+  <button class="download-btn" data-url={musicFullUrl} data-filename={fileKey}>
+    ↓ Download
+  </button>
 </div>
 
-<!-- TODO: Melhorar esse script, os btns estão funcionando, mas será interessante ver se tem como melhorara logica de pega o botão correto e baixar a faixa correta -->
-<script>
-  document.addEventListener('astro:page-load', () => {});
-
-  const downloadButton = document.querySelectorAll('button[data-url]');
-
-  downloadButton.forEach((button) => {
-    button.addEventListener('click', async (e) => {
-      e.preventDefault();
-
-      const target = e.target as HTMLButtonElement;
-      target.disabled = true;
-      target.innerText = 'Baixando...';
-      const url = target.getAttribute('data-url');
-      await downloadAudio(url ? url.trim() : '');
-      target.disabled = false;
-      target.innerText = 'Download';
-    });
-  });
-
-  async function downloadAudio(url: string) {
-    try {
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error('Erro ao baixar arquivo');
-      }
-
-      const blob = await response.blob();
-
-      const link = document.createElement('a');
-      const objectUrl = URL.createObjectURL(blob);
-
-      link.href = objectUrl;
-      link.download =
-        document
-          .querySelector('button[data-url="' + url + '"]')
-          ?.getAttribute('data-name') ?? 'audio.mp3';
-      document.body.appendChild(link);
-      link.click();
-
-      link.remove();
-      URL.revokeObjectURL(objectUrl);
-    } catch (err) {
-      console.error(err);
-      alert('Falha ao baixar áudio');
+<style>
+  .info {
+    h3 {
+      margin: 0;
+      font-size: 1.125rem;
+    }
+    span {
+      color: gray;
+      font-size: 0.875rem;
     }
   }
-</script>
-
-<style>
-  .info h3 {
-    margin: 0;
-    /*color: #fff;*/
-    font-size: 1.1rem;
-  }
-
-  .info span {
-    color: #888;
-    font-size: 0.8rem;
-  }
-
   button {
-    background: none;
-    border: none;
     color: #4f46e5;
-    cursor: pointer;
-    font-size: 0.8rem;
-  }
-
-  audio {
-    width: 100%;
-    height: 35px;
-  }
-
-  /* Estilizando o player para combinar com o tema escuro (opcional) */
-  audio::-webkit-media-controls-enclosure {
-    background-color: #2a2a2a;
+    font-size: 1rem;
+    &:hover {
+      background-color: #11f1;
+    }
+    &:disabled {
+      opacity: 50%;
+    }
   }
 </style>
 
-<!-- TODO: blá blá blá -->
+<script>
+  async function downloadAudio(
+    url: string,
+    filename: string,
+    btn: HTMLButtonElement,
+  ) {
+    const originalText = btn.innerText;
+
+    try {
+      btn.disabled = true;
+      btn.innerText = 'Baixando...';
+
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Status: ${response.status}`);
+
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = objectUrl;
+      link.download = filename;
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(objectUrl);
+    } catch (err) {
+      console.error('Erro no download:', err);
+      alert('Não foi possível baixar o áudio. Tente novamente.');
+    } finally {
+      btn.disabled = false;
+      btn.innerText = originalText;
+    }
+  }
+
+  function initDownloadLogic() {
+    document.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(
+        '.download-btn',
+      );
+
+      if (btn) {
+        const url = btn.dataset.url;
+        const filename = btn.dataset.filename || 'audio.mp3';
+
+        if (url) {
+          downloadAudio(url, filename, btn);
+        }
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', initDownloadLogic);
+</script>
