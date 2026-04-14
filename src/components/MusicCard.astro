@@ -27,7 +27,12 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
 </div>
 
 <style>
+  .card {
+    display: flex;
+    flex-direction: column;
+  }
   .info {
+    height: 100%;
     h3 {
       margin: 0;
       font-size: 1.125rem;
@@ -38,8 +43,12 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
     }
   }
   button {
-    color: #4f46e5;
+    color: var(--primary-color);
     font-size: 1rem;
+    border: 1px solid;
+    margin-top: 0.875rem;
+    margin-left: auto;
+    width: 100%;
     &:hover {
       background-color: #11f1;
     }
