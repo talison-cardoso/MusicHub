@@ -70,3 +70,9 @@ input:focus {
   outline: none;
   border-color: var(--primary-color);
 }
+
+article[data-view='list'] .download-btn {
+  @media (min-width: 48rem) {
+    width: max-content;
+  }
+}
