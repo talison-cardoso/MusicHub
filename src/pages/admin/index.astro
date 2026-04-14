@@ -1,7 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import AddMusicModal from '@/components/AddMusicModal.astro';
-
 import { Song } from '@/lib/models/Song';
 import { connectDB } from '@/lib/mongodb';
 import MusicCard from '@/components/MusicCard.astro';
@@ -11,10 +10,56 @@ const songs = await Song.find().sort({ createdAt: -1 });
 ---
 
 <Layout showHeader={false}>
-  <h1>Minhas Músicas</h1>
-  <button id="open-modal-btn" class="add-btn">Adicionar Música</button>
+  <div class="header-actions">
+    <h1>Minhas Músicas</h1>
+    <div class="controls">
+      <div class="view-toggle">
+        <button id="list-view-btn" title="Visualização em Lista">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="8" y1="6" stroke="currentColor" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+        </button>
+        <button id="grid-view-btn" title="Visualização em Grid">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><rect x="3" y="3" width="7" height="7"></rect><rect
+              x="14"
+              y="3"
+              width="7"
+              height="7"></rect><rect x="14" y="14" width="7" height="7"
+            ></rect><rect x="3" y="14" width="7" height="7"></rect></svg
+          >
+        </button>
+      </div>
+      <button id="open-modal-btn" class="add-btn">Adicionar Música</button>
+    </div>
+  </div>
+
   <section>
-    <article class="grid">
+    <article id="music-container" class="music-wrapper" data-view="list">
       {
         songs.map((song) => (
           <MusicCard
@@ -26,44 +71,108 @@ const songs = await Song.find().sort({ createdAt: -1 });
       }
     </article>
   </section>
+
   <AddMusicModal />
 </Layout>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  function setupViewToggle() {
+    const container = document.getElementById('music-container');
+    const gridBtn = document.getElementById('grid-view-btn');
+    const listBtn = document.getElementById('list-view-btn');
+
+    if (!container || !gridBtn || !listBtn) return;
+
+    const savedView = localStorage.getItem('music-view') || 'grid';
+    updateView(savedView);
+
+    function updateView(view: string) {
+      container?.setAttribute('data-view', view);
+      localStorage.setItem('music-view', view);
+
+      gridBtn?.classList.toggle('active', view === 'grid');
+      listBtn?.classList.toggle('active', view === 'list');
+    }
+
+    gridBtn.addEventListener('click', () => updateView('grid'));
+    listBtn.addEventListener('click', () => updateView('list'));
+
     const openBtn = document.getElementById('open-modal-btn');
     const modal = document.getElementById('music-modal') as HTMLDialogElement;
-    openBtn?.addEventListener('click', () => {
-      modal.showModal(); // O método showModal habilita o backdrop e o foco
-    });
-  });
+    openBtn?.addEventListener('click', () => modal.showModal());
+  }
+
+  document.addEventListener('astro:page-load', setupViewToggle);
 </script>
 
 <style>
-  h1 {
+  .header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
-  .add-btn {
-    display: block;
-    height: 3rem;
-    background-color: var(--primary-color);
-    margin-bottom: 1rem;
-    width: min(100%, 240px);
-    margin-left: auto;
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
-  section {
+
+  .view-toggle {
+    display: flex;
+    background: #11f1;
+    padding: 4px;
+    border-radius: 8px;
+    gap: 4px;
+    border: solid 1px #11f1;
+  }
+
+  .view-toggle button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    padding: 6px;
+    color: var(--primary-color);
+    transition: all 0.2s;
+  }
+
+  .view-toggle button.active {
+    background: var(--primary-color);
+    color: #fff;
+    transition: all 0.2s;
+  }
+
+  .music-wrapper[data-view='grid'] {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .music-wrapper[data-view='list'] {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem 0;
-    }
+  .add-btn {
+    height: 3rem;
+    background-color: var(--primary-color);
+    padding: 0 1.5rem;
+    /*border-radius: 8px;*/
+    font-weight: 500;
+  }
 
+  h1 {
+    margin: 0;
+  }
+
+  @media (max-width: 778px) {
+    .view-toggle {
+      display: none;
     }
   }
 </style>
