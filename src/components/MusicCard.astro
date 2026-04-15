@@ -1,11 +1,13 @@
 ---
 interface Props {
+  id: string;
   title: string;
   fileKey: string;
   createdAt: Date;
+  isAdmin?: boolean;
 }
 
-const { title, fileKey, createdAt } = Astro.props;
+const { id, title, fileKey, createdAt, isAdmin = false } = Astro.props;
 
 const BUCKET_PUBLIC_URL = 'https://pub-4acb60e77e00470a9ce80de9a5b1a069.r2.dev';
 const musicFullUrl = `${BUCKET_PUBLIC_URL}/${fileKey}`;
@@ -15,15 +17,32 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
 );
 ---
 
-<div class="card">
+<div class="card" data-id={id} data-key={fileKey} data-title={title}>
   <div class="info">
-    <h3>{title}</h3>
-    <span>Adicionada em: {dateFormatted}</span>
+    <h3 class="song-title">{title}</h3>
+    <span class="date">Adicionada em: {dateFormatted}</span>
   </div>
-
-  <button class="download-btn" data-url={musicFullUrl} data-filename={fileKey}>
-    ↓ Download
-  </button>
+  <div class="actions">
+    <button
+      class="download-btn"
+      data-url={musicFullUrl}
+      data-filename={fileKey}
+    >
+      Download
+    </button>
+    {
+      isAdmin && (
+        <>
+          <button class="edit-btn" title="Editar título">
+            Editar
+          </button>
+          <button class="delete-btn" title="Excluir música">
+            Excluir
+          </button>
+        </>
+      )
+    }
+  </div>
 </div>
 
 <style>
@@ -31,6 +50,7 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
     display: flex;
     flex-direction: column;
   }
+
   .info {
     height: 100%;
     h3 {
@@ -42,18 +62,38 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
       font-size: 0.875rem;
     }
   }
-  button {
-    color: var(--primary-color);
-    font-size: 1rem;
-    border: 1px solid;
-    margin-top: 0.875rem;
+  .actions {
+    display: flex;
+    gap: 0.75rem;
     margin-left: auto;
-    width: 100%;
-    &:hover {
-      background-color: #11f1;
+    button {
+      font-size: 1rem;
+      margin-top: 0.875rem;
+      width: max-content;
+      &:disabled {
+        opacity: 50%;
+      }
     }
-    &:disabled {
-      opacity: 50%;
+    .download-btn {
+      color: var(--primary-color);
+      border: 1px solid #11f8;
+      &:hover {
+        background-color: #11f1;
+      }
+    }
+    .delete-btn {
+      color: #ef4444;
+      border: 1px solid #ef444480;
+      &:hover {
+        background-color: #ef444411;
+      }
+    }
+    .edit-btn {
+      color: #f59e0b;
+      border: 1px solid #f59e0b80;
+      &:hover {
+        background-color: #f59e0b11;
+      }
     }
   }
 </style>
@@ -86,30 +126,68 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
       document.body.removeChild(link);
       URL.revokeObjectURL(objectUrl);
     } catch (err) {
-      console.error('Erro no download:', err);
-      alert('Não foi possível baixar o áudio. Tente novamente.');
+      alert('Falha no download.');
     } finally {
       btn.disabled = false;
       btn.innerText = originalText;
     }
   }
 
-  function initDownloadLogic() {
-    document.addEventListener('click', (e) => {
-      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(
-        '.download-btn',
-      );
+  function initMusicActions() {
+    document.addEventListener('click', async (e) => {
+      const target = e.target as HTMLElement;
+      const btn = target.closest('button');
+      if (!btn) return;
 
-      if (btn) {
+      const card = btn.closest('.card') as HTMLElement;
+      if (!card) return;
+
+      const id = card.dataset.id;
+      const musicKey = card.dataset.key;
+      const currentTitle = card.dataset.title;
+
+      // Ação: Download
+      if (btn.classList.contains('download-btn')) {
         const url = btn.dataset.url;
         const filename = btn.dataset.filename || 'audio.mp3';
+        if (url) downloadAudio(url, filename, btn);
+      }
 
-        if (url) {
-          downloadAudio(url, filename, btn);
+      // Ação: Delete
+      if (btn.classList.contains('delete-btn') && id && musicKey) {
+        if (!confirm(`Excluir "${currentTitle}"?`)) return;
+        btn.disabled = true;
+        const res = await fetch('/api/admin/delete-music', {
+          method: 'POST',
+          body: JSON.stringify({ id, musicKey }),
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (res.ok) card.remove();
+        else {
+          alert('Erro ao deletar.');
+          btn.disabled = false;
+        }
+      }
+
+      // Ação: Edit
+      if (btn.classList.contains('edit-btn') && id) {
+        const newTitle = prompt('Novo título:', currentTitle || '');
+        if (!newTitle || newTitle === currentTitle) return;
+
+        const res = await fetch('/api/admin/edit-music', {
+          method: 'POST',
+          body: JSON.stringify({ id, title: newTitle }),
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (res.ok) {
+          const titleEl = card.querySelector('.song-title');
+          if (titleEl) titleEl.textContent = newTitle;
+          card.dataset.title = newTitle;
         }
       }
     });
   }
 
-  document.addEventListener('astro:page-load', initDownloadLogic);
+  document.addEventListener('astro:page-load', initMusicActions);
 </script>

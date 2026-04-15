@@ -71,7 +71,7 @@ input:focus {
   border-color: var(--primary-color);
 }
 
-article[data-view='list'] .download-btn {
+article[data-view='list'] .actions button {
   @media (min-width: 48rem) {
     width: max-content;
   }

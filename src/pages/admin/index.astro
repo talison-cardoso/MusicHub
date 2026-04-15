@@ -63,9 +63,11 @@ const songs = await Song.find().sort({ createdAt: -1 });
       {
         songs.map((song) => (
           <MusicCard
+            id={song.id}
             title={song.title}
             fileKey={song.fileKey}
             createdAt={song.createdAt}
+            isAdmin={true}
           />
         ))
       }
