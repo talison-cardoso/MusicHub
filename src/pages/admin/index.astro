@@ -4,6 +4,7 @@ import AddMusicModal from '@/components/AddMusicModal.astro';
 import { Song } from '@/lib/models/Song';
 import { connectDB } from '@/lib/mongodb';
 import MusicCard from '@/components/MusicCard.astro';
+import DeleteMusicModal from '@/components/DeleteMusicModal.astro';
 
 await connectDB();
 const songs = await Song.find().sort({ createdAt: -1 });
@@ -75,6 +76,7 @@ const songs = await Song.find().sort({ createdAt: -1 });
   </section>
 
   <AddMusicModal />
+  <DeleteMusicModal />
 </Layout>
 
 <script>
