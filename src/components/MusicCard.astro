@@ -140,6 +140,7 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
       'delete-confirm-modal',
     ) as HTMLDialogElement;
     const confirmDeleteBtn = document.getElementById('confirm-delete');
+    const cancelDeleteBtn = document.getElementById('cancel-delete');
 
     let itemToDelete: { id: string; key: string; card: HTMLElement } | null =
       null;
@@ -220,6 +221,12 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
         deleteModal?.close();
         itemToDelete = null;
       }
+    });
+
+    cancelDeleteBtn?.addEventListener('click', () => {
+      console.log('cancelDeleteBtn clicked');
+      deleteModal?.close();
+      itemToDelete = null;
     });
   }
 
