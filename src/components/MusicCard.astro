@@ -11,15 +11,17 @@ const { id, title, fileKey, createdAt, isAdmin = false } = Astro.props;
 
 const musicFullUrl = `${import.meta.env.BUCKET_PUBLIC_URL}/${fileKey}`;
 
-const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
-  new Date(createdAt),
-);
+const dateFormatted = new Intl.DateTimeFormat('pt', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+}).format(new Date(createdAt));
 ---
 
 <div class="card" data-id={id} data-key={fileKey} data-title={title}>
   <div class="info">
     <h2 class="song-title">{title}</h2>
-    <span class="date">Lançamento {dateFormatted}</span>
+    <span class="date">Lançado em {dateFormatted}</span>
   </div>
   <div class="actions">
     <button
