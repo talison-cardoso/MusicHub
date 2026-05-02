@@ -55,7 +55,12 @@ const songs = await Song.find().sort({ createdAt: -1 });
           >
         </button>
       </div>
+
       <button id="open-modal-btn" class="add-btn">Adicionar Música</button>
+
+      <div class="user-actions">
+        <button id="logout-btn" class="logout-btn">Sair</button>
+      </div>
     </div>
   </div>
 
@@ -104,6 +109,13 @@ const songs = await Song.find().sort({ createdAt: -1 });
     const openBtn = document.getElementById('open-modal-btn');
     const modal = document.getElementById('music-modal') as HTMLDialogElement;
     openBtn?.addEventListener('click', () => modal.showModal());
+
+    document
+      .getElementById('logout-btn')
+      ?.addEventListener('click', async () => {
+        await fetch('/api/logout', { method: 'POST' });
+        window.location.href = '/login';
+      });
   }
 
   document.addEventListener('astro:page-load', setupViewToggle);
@@ -121,7 +133,7 @@ const songs = await Song.find().sort({ createdAt: -1 });
 
   .controls {
     display: flex;
-    align-items: center;
+    align-items: end;
     gap: 1rem;
   }
 
@@ -163,11 +175,17 @@ const songs = await Song.find().sort({ createdAt: -1 });
   }
 
   .add-btn {
-    height: 3rem;
+    height: 2.6rem;
     background-color: var(--primary-color);
     padding: 0 1.5rem;
     /*border-radius: 8px;*/
     font-weight: 500;
+  }
+
+  .logout-btn {
+    /*border: 1px solid #f44336;*/
+    color: #f44336;
+    text-decoration: underline;
   }
 
   h1 {
