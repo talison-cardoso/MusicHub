@@ -10,7 +10,7 @@ await connectDB();
 const songs = await Song.find().sort({ createdAt: -1 });
 ---
 
-<Layout showHeader={false}>
+<Layout showHeader={true}>
   <div class="header-actions">
     <h1>Minhas Músicas</h1>
     <div class="controls">

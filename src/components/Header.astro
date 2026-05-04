@@ -1,8 +1,19 @@
 ---
 const pathname = new URL(Astro.request.url).pathname;
+const isLogged = !!Astro.locals.user;
+const isAdmin = pathname === '/admin';
+
+console.log(isLogged, isAdmin);
 ---
 
 <nav>
+  {
+    isLogged && (
+      <a href="/admin" class={isAdmin ? 'active' : ''}>
+        Admin
+      </a>
+    )
+  }
   <a href="/" class={pathname === '/' ? 'active' : ''}>Início</a>
   <a href="/music" class={pathname.includes('/music') ? 'active' : ''}
     >Músicas</a
