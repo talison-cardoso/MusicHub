@@ -2,7 +2,7 @@
   <div class="modal-content">
     <header>
       <h2>Adicionar Música</h2>
-      <button id="close-modal" aria-label="Fechar">&times;</button>
+      <button id="close-modal-btn" aria-label="Fechar">&times;</button>
     </header>
 
     <form id="upload-form">
@@ -39,7 +39,7 @@
           >
           <div class="text-content">
             <span class="main-text">Clique para selecionar</span>
-            <span class="sub-text">ou arraste o arquivo de áudio</span>
+            <span class="sub-text">ou arraste o áudio aqui</span>
           </div>
           <span id="file-name-display" class="file-name-display"
             >Nenhum arquivo selecionado</span
@@ -54,7 +54,7 @@
         />
       </div>
 
-      <button type="submit" class="submit-btn" id="submit-btn">
+      <button type="submit" class="submit-btn" id="submit-upload-btn">
         <span>Enviar Música</span>
       </button>
     </form>
@@ -88,24 +88,10 @@
     margin-bottom: 2rem;
   }
 
-  header h2 {
-    font-size: 1.5rem;
-    color: var(--text-main);
-    margin: 0;
-  }
-
-  #close-modal {
-    background: none;
-    border: none;
+  #close-modal-btn {
+    font-weight: 400;
     font-size: 2rem;
     color: var(--text-muted);
-    cursor: pointer;
-    line-height: 1;
-    transition: color 0.2s;
-  }
-
-  #close-modal:hover {
-    color: var(--text-main);
   }
 
   form {
@@ -190,6 +176,10 @@
     color: var(--primary-color);
   }
 
+  .drop-zone.has-file .upload-icon {
+    color: #10b981;
+  }
+
   .text-content {
     display: flex;
     flex-direction: column;
@@ -216,83 +206,62 @@
 
   .submit-btn {
     background: var(--primary-color);
-    color: white;
     padding: 1rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .submit-btn:hover:not(:disabled) {
-    background: var(--primary-hover);
   }
 
   .submit-btn:disabled {
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: not-allowed;
   }
 </style>
 
 <script>
+  import { toast } from '@/utils/toast';
+
   document.addEventListener('astro:page-load', () => {
     const modal = document.getElementById('music-modal') as HTMLDialogElement;
-    const closeBtn = document.getElementById('close-modal');
     const form = document.getElementById('upload-form') as HTMLFormElement;
     const fileInput = document.getElementById('music-file') as HTMLInputElement;
     const dropZone = document.getElementById('drop-zone');
     const fileNameDisplay = document.getElementById('file-name-display');
     const submitBtn = document.getElementById(
-      'submit-btn',
+      'submit-upload-btn',
     ) as HTMLButtonElement;
+    const closeBtn = document.getElementById('close-modal-btn');
 
-    // --- Lógica de UI do Modal ---
-    closeBtn?.addEventListener('click', () => modal.close());
-    modal?.addEventListener(
-      'click',
-      (e) => e.target === modal && modal.close(),
-    );
-
-    // --- Lógica de Drag and Drop ---
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((eventName) => {
-      dropZone?.addEventListener(eventName, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-      });
+    closeBtn?.addEventListener('click', () => {
+      resetForm();
+      modal.close();
     });
 
-    dropZone?.addEventListener('dragover', () =>
-      dropZone.classList.add('drag-over'),
-    );
+    // Drag and Drop Logic
+    dropZone?.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('drag-over');
+    });
+
     dropZone?.addEventListener('dragleave', () =>
       dropZone.classList.remove('drag-over'),
     );
 
     dropZone?.addEventListener('drop', (e) => {
+      e.preventDefault();
       dropZone.classList.remove('drag-over');
-      const files = e.dataTransfer?.files;
-      if (files && files.length > 0) {
-        fileInput.files = files;
-        updateFileName(files[0].name);
+      if (e.dataTransfer?.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        updateUI(e.dataTransfer.files[0].name);
       }
     });
 
     fileInput?.addEventListener('change', () => {
-      if (fileInput.files && fileInput.files.length > 0) {
-        updateFileName(fileInput.files[0].name);
-      }
+      if (fileInput.files?.length) updateUI(fileInput.files[0].name);
     });
 
-    function updateFileName(name: string) {
-      if (fileNameDisplay && dropZone) {
-        fileNameDisplay.textContent = name;
-        dropZone.classList.add('has-file');
-      }
+    function updateUI(name: string) {
+      if (fileNameDisplay) fileNameDisplay.textContent = name;
+      dropZone?.classList.add('has-file');
     }
 
-    // --- Lógica de Upload ---
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -300,62 +269,54 @@
       const file = formData.get('file') as File;
       const title = formData.get('title') as string;
 
-      if (!file || !title) return alert('Por favor, preencha todos os campos.');
-
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>Enviando...</span>';
+      submitBtn.innerText = 'Enviando...';
 
       try {
-        // 1. Obter URL Assinada
-        const response = await fetch('/api/admin/get-upload-url', {
+        const signRes = await fetch('/api/admin/get-upload-url', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ fileName: file.name, fileType: file.type }),
+          headers: { 'Content-Type': 'application/json' },
         });
 
-        if (!response.ok) throw new Error('Erro ao obter URL de upload');
-        const { signedUrl, key } = await response.json();
+        if (!signRes.ok) throw new Error('Erro ao obter URL assinada');
+        const { signedUrl, key } = await signRes.json();
 
-        // 2. Upload direto para o R2 via PUT
         const uploadRes = await fetch(signedUrl, {
           method: 'PUT',
           body: file,
           headers: { 'Content-Type': file.type },
         });
 
-        if (!uploadRes.ok) throw new Error('Falha no upload para o storage');
+        if (!uploadRes.ok) throw new Error('Erro no upload R2');
 
-        // 3. Salvar Metadados no MongoDB
         const saveRes = await fetch('/api/admin/save-metadata', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ title, musicKey: key }),
+          headers: { 'Content-Type': 'application/json' },
         });
 
-        if (!saveRes.ok) {
-          const errorData = await saveRes.json();
-          throw new Error(errorData.message || 'Erro ao salvar metadados');
+        if (saveRes.ok) {
+          toast('Música adicionada com sucesso!', 'success');
+          resetForm();
+          modal.close();
+          // TODO: quem sabe implementar um nanoStores para evitar o reload e perder a mensagem do toast...
+          // Opcional: window.location.reload() ou disparar evento para atualizar a lista
+          window.location.reload();
         }
-
-        alert('Música adicionada com sucesso!');
-
-        // Reset e Fechamento
-        form.reset();
-        fileNameDisplay!.textContent = 'Nenhum arquivo selecionado';
-        dropZone!.classList.remove('has-file');
-        modal.close();
-
-        // Recarregar a página para mostrar a nova música (ou disparar evento personalizado)
-        window.location.reload();
       } catch (err) {
-        console.error(err);
-        alert(
-          err instanceof Error ? err.message : 'Ocorreu um erro inesperado.',
-        );
+        console.error({ err });
+        toast('Falha ao enviar música.', 'error');
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span>Enviar Música</span>';
+        submitBtn.innerText = 'Enviar Música';
       }
     });
+
+    function resetForm() {
+      form.reset();
+      fileNameDisplay!.textContent = 'Nenhum arquivo selecionado';
+      dropZone!.classList.remove('has-file');
+    }
   });
 </script>

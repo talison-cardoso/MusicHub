@@ -9,18 +9,19 @@ interface Props {
 
 const { id, title, fileKey, createdAt, isAdmin = false } = Astro.props;
 
-const BUCKET_PUBLIC_URL = 'https://pub-4acb60e77e00470a9ce80de9a5b1a069.r2.dev';
-const musicFullUrl = `${BUCKET_PUBLIC_URL}/${fileKey}`;
+const musicFullUrl = `${import.meta.env.BUCKET_PUBLIC_URL}/${fileKey}`;
 
-const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
-  new Date(createdAt),
-);
+const dateFormatted = new Intl.DateTimeFormat('pt', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+}).format(new Date(createdAt));
 ---
 
 <div class="card" data-id={id} data-key={fileKey} data-title={title}>
   <div class="info">
-    <h3 class="song-title">{title}</h3>
-    <span class="date">Adicionada em: {dateFormatted}</span>
+    <h2 class="song-title">{title}</h2>
+    <span class="date">Lançado em {dateFormatted}</span>
   </div>
   <div class="actions">
     <button
@@ -99,6 +100,8 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
 </style>
 
 <script>
+  import { toast } from '@/utils/toast';
+
   async function downloadAudio(
     url: string,
     filename: string,
@@ -125,8 +128,9 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
 
       document.body.removeChild(link);
       URL.revokeObjectURL(objectUrl);
+      toast('Música baixada com sucesso!', 'success');
     } catch (err) {
-      alert('Falha no download.');
+      toast('Falha no download.', 'error');
     } finally {
       btn.disabled = false;
       btn.innerText = originalText;
@@ -134,6 +138,15 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
   }
 
   function initMusicActions() {
+    const deleteModal = document.getElementById(
+      'delete-confirm-modal',
+    ) as HTMLDialogElement;
+    const confirmDeleteBtn = document.getElementById('confirm-delete');
+    const cancelDeleteBtn = document.getElementById('cancel-delete');
+
+    let itemToDelete: { id: string; key: string; card: HTMLElement } | null =
+      null;
+
     document.addEventListener('click', async (e) => {
       const target = e.target as HTMLElement;
       const btn = target.closest('button');
@@ -155,18 +168,8 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
 
       // Ação: Delete
       if (btn.classList.contains('delete-btn') && id && musicKey) {
-        if (!confirm(`Excluir "${currentTitle}"?`)) return;
-        btn.disabled = true;
-        const res = await fetch('/api/admin/delete-music', {
-          method: 'POST',
-          body: JSON.stringify({ id, musicKey }),
-          headers: { 'Content-Type': 'application/json' },
-        });
-        if (res.ok) card.remove();
-        else {
-          alert('Erro ao deletar.');
-          btn.disabled = false;
-        }
+        itemToDelete = { id, key: musicKey, card };
+        deleteModal?.showModal();
       }
 
       // Ação: Edit
@@ -174,18 +177,58 @@ const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
         const newTitle = prompt('Novo título:', currentTitle || '');
         if (!newTitle || newTitle === currentTitle) return;
 
-        const res = await fetch('/api/admin/edit-music', {
+        try {
+          const res = await fetch('/api/admin/edit-music', {
+            method: 'POST',
+            body: JSON.stringify({ id, title: newTitle }),
+            headers: { 'Content-Type': 'application/json' },
+          });
+
+          if (res.ok) {
+            const titleEl = card.querySelector('.song-title');
+            if (titleEl) titleEl.textContent = newTitle;
+            card.dataset.title = newTitle;
+            toast('Título atualizado!', 'success');
+          } else {
+            toast('Erro ao atualizar título.', 'error');
+          }
+        } catch {
+          toast('Erro de conexão.', 'error');
+        }
+      }
+    });
+
+    // Lógica do botão de confirmação do Modal de Delete
+    confirmDeleteBtn?.addEventListener('click', async () => {
+      if (!itemToDelete) return;
+
+      const { id, key, card } = itemToDelete;
+
+      try {
+        const res = await fetch('/api/admin/delete-music', {
           method: 'POST',
-          body: JSON.stringify({ id, title: newTitle }),
+          body: JSON.stringify({ id, musicKey: key }),
           headers: { 'Content-Type': 'application/json' },
         });
 
         if (res.ok) {
-          const titleEl = card.querySelector('.song-title');
-          if (titleEl) titleEl.textContent = newTitle;
-          card.dataset.title = newTitle;
+          card.remove();
+          toast('Música removida com sucesso!', 'success');
+        } else {
+          toast('Erro ao deletar do servidor.', 'error');
         }
+      } catch {
+        toast('Erro ao processar exclusão.', 'error');
+      } finally {
+        deleteModal?.close();
+        itemToDelete = null;
       }
+    });
+
+    cancelDeleteBtn?.addEventListener('click', () => {
+      console.log('cancelDeleteBtn clicked');
+      deleteModal?.close();
+      itemToDelete = null;
     });
   }
 
