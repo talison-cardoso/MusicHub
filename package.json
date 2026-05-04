@@ -20,7 +20,10 @@
     "@aws-sdk/s3-request-presigner": "^3.1022.0",
     "astro": "^6.0.4",
     "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "jose": "^6.2.2",
+    "mongodb": "^7.2.0",
     "mongoose": "^9.3.3"
   },
   "devDependencies": {

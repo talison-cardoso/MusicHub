@@ -9,7 +9,7 @@ interface Props {
 
 const { id, title, fileKey, createdAt, isAdmin = false } = Astro.props;
 
-const BUCKET_PUBLIC_URL = 'https://pub-4acb60e77e00470a9ce80de9a5b1a069.r2.dev';
+const BUCKET_PUBLIC_URL = 'https://pub-ad93f4e240374ab3ba91c0fd97c6c48e.r2.dev';
 const musicFullUrl = `${BUCKET_PUBLIC_URL}/${fileKey}`;
 
 const dateFormatted = new Intl.DateTimeFormat('pt-BR').format(
