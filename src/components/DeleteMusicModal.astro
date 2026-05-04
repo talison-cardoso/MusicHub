@@ -1,0 +1,43 @@
+<dialog id="delete-confirm-modal">
+  <div class="modal-content">
+    <h3>Excluir Música?</h3>
+    <p>
+      Essa ação não pode ser desfeita e removerá o arquivo do Cloudflare R2.
+    </p>
+    <div class="modal-actions">
+      <button id="cancel-delete" class="btn-secondary">Cancelar</button>
+      <button id="confirm-delete" class="btn-danger"
+        >Excluir Permanentemente</button
+      >
+    </div>
+  </div>
+</dialog>
+
+<style>
+  dialog {
+    margin: auto;
+    border: none;
+    border-radius: 12px;
+    padding: 2rem;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .btn-danger {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .btn-secondary {
+    background: var(--text-muted);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+</style>

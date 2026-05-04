@@ -9,7 +9,13 @@ export default [
 
   // Integração com Prettier
   prettierPlugin,
-
+  {
+    files: ['**/*.{js,ts}'],
+    languageOptions: {
+      parser: tsParser,
+      sourceType: 'module',
+    },
+  },
   {
     files: ['**/*.astro'],
     languageOptions: {

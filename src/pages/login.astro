@@ -4,7 +4,7 @@ import Layout from '@/layouts/Layout.astro';
 
 <Layout showHeader={false}>
   <section>
-    <form class="card">
+    <form class="card" method="POST">
       <h1>Painel Admin</h1>
       <input type="text" name="username" placeholder="Usuário" required />
       <input type="password" name="password" placeholder="Senha" required />
@@ -88,6 +88,10 @@ import Layout from '@/layouts/Layout.astro';
       &:hover {
         background-color: var(--primary-hover);
       }
+    }
+    #error-msg {
+      color: var(--error-color);
+      font-size: 0.875rem;
     }
   }
 </style>
