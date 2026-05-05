@@ -3,8 +3,6 @@ import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import '../styles/global.css';
 
-const pathname = new URL(Astro.request.url).pathname;
-
 const { showHeader = true, title = 'Rapper Young Nísioo' } = Astro.props;
 ---
 
@@ -14,6 +12,8 @@ const { showHeader = true, title = 'Rapper Young Nísioo' } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
