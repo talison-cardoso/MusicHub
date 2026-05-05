@@ -85,6 +85,8 @@ const songs = await Song.find().sort({ createdAt: -1 });
 </Layout>
 
 <script>
+  import '../../scripts/music-action.ts';
+
   function setupViewToggle() {
     const container = document.getElementById('music-container');
     const gridBtn = document.getElementById('grid-view-btn');
