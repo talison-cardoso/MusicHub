@@ -1,127 +1,261 @@
+@import "tailwindcss";
+
+/* 1. Definição do Tema Base no Tailwind v4 */
+@theme {
+  /* Mapeamento dos valores base compartilhados */
+  --radius-default: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  --spacing-space-xs: 0.375rem;
+  --spacing-space-lg: 2rem;
+  --spacing-space-sm: 0.75rem;
+  --spacing-margin: 1.25rem;
+  --spacing-space-xl: 3.5rem;
+  --spacing-gutter-desktop: 2rem;
+  --spacing-space-md: 1.25rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-margin-desktop: 4rem;
+
+  --font-stat-counter: "Syne", sans-serif;
+  --font-body-sm: "Plus Jakarta Sans", sans-serif;
+  --font-label-lg: "Space Grotesk", sans-serif;
+  --font-body-md: "Plus Jakarta Sans", sans-serif;
+  --font-body-lg: "Plus Jakarta Sans", sans-serif;
+  --font-display-hero-mobile: "Syne", sans-serif;
+  --font-label-md: "Space Grotesk", sans-serif;
+  --font-headline-lg: "Syne", sans-serif;
+  --font-headline-lg-mobile: "Syne", sans-serif;
+  --font-headline-sm: "Plus Jakarta Sans", sans-serif;
+  --font-headline-md: "Syne", sans-serif;
+  --font-display-hero: "Syne", sans-serif;
+
+  --text-stat-counter: 28px;
+  --text-stat-counter--line-height: 32px;
+  --text-stat-counter--font-weight: 700;
+
+  --text-body-sm: 12px;
+  --text-body-sm--line-height: 18px;
+  --text-body-sm--font-weight: 400;
+
+  --text-label-lg: 14px;
+  --text-label-lg--line-height: 18px;
+  --text-label-lg--font-weight: 600;
+
+  --text-body-md: 14px;
+  --text-body-md--line-height: 22px;
+  --text-body-md--font-weight: 400;
+
+  --text-body-lg: 16px;
+  --text-body-lg--line-height: 26px;
+  --text-body-lg--font-weight: 400;
+
+  --text-display-hero-mobile: 36px;
+  --text-display-hero-mobile--line-height: 44px;
+  --text-display-hero-mobile--font-weight: 800;
+
+  --text-label-md: 12px;
+  --text-label-md--line-height: 16px;
+  --text-label-md--font-weight: 500;
+
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 40px;
+  --text-headline-lg--font-weight: 700;
+
+  --text-headline-lg-mobile: 26px;
+  --text-headline-lg-mobile--line-height: 34px;
+  --text-headline-lg-mobile--font-weight: 700;
+
+  --text-headline-sm: 18px;
+  --text-headline-sm--line-height: 26px;
+  --text-headline-sm--font-weight: 600;
+
+  --text-headline-md: 22px;
+  --text-headline-md--line-height: 30px;
+  --text-headline-md--font-weight: 600;
+
+  --text-display-hero: 56px;
+  --text-display-hero--line-height: 64px;
+  --text-display-hero--font-weight: 800;
+
+  /* Mapeamento dinâmico de cores para uso de utilitários como bg-primary, text-surface, etc. */
+  --color-secondary-container: var(--theme-secondary-container);
+  --color-surface-container-low: var(--theme-surface-container-low);
+  --color-secondary-fixed-dim: var(--theme-secondary-fixed-dim);
+  --color-on-primary-container: var(--theme-on-primary-container);
+  --color-tertiary-fixed-dim: var(--theme-tertiary-fixed-dim);
+  --color-on-surface-variant: var(--theme-on-surface-variant);
+  --color-outline-variant: var(--theme-outline-variant);
+  --color-inverse-on-surface: var(--theme-inverse-on-surface);
+  --color-outline: var(--theme-outline);
+  --color-secondary: var(--theme-secondary);
+  --color-surface-container-high: var(--theme-surface-container-high);
+  --color-on-tertiary-container: var(--theme-on-tertiary-container);
+  --color-background: var(--theme-background);
+  --color-surface-bright: var(--theme-surface-bright);
+  --color-on-error: var(--theme-on-error);
+  --color-on-secondary-fixed-variant: var(--theme-on-secondary-fixed-variant);
+  --color-on-tertiary: var(--theme-on-tertiary);
+  --color-surface-tint: var(--theme-surface-tint);
+  --color-on-tertiary-fixed-variant: var(--theme-on-tertiary-fixed-variant);
+  --color-surface-variant: var(--theme-surface-variant);
+  --color-tertiary-container: var(--theme-tertiary-container);
+  --color-on-tertiary-fixed: var(--theme-on-tertiary-fixed);
+  --color-tertiary-fixed: var(--theme-tertiary-fixed);
+  --color-error: var(--theme-error);
+  --color-on-error-container: var(--theme-on-error-container);
+  --color-on-secondary: var(--theme-on-secondary);
+  --color-primary: var(--theme-primary);
+  --color-on-primary: var(--theme-on-primary);
+  --color-surface-dim: var(--theme-surface-dim);
+  --color-surface-container-highest: var(--theme-surface-container-highest);
+  --color-primary-fixed-dim: var(--theme-primary-fixed-dim);
+  --color-surface: var(--theme-surface);
+  --color-on-surface: var(--theme-on-surface);
+  --color-on-primary-fixed: var(--theme-on-primary-fixed);
+  --color-inverse-surface: var(--theme-inverse-surface);
+  --color-on-background: var(--theme-on-background);
+  --color-surface-container-lowest: var(--theme-surface-container-lowest);
+  --color-on-primary-fixed-variant: var(--theme-on-primary-fixed-variant);
+  --color-tertiary: var(--theme-tertiary);
+  --color-secondary-fixed: var(--theme-secondary-fixed);
+  --color-primary-fixed: var(--theme-primary-fixed);
+  --color-surface-container: var(--theme-surface-container);
+  --color-on-secondary-container: var(--theme-on-secondary-container);
+  --color-inverse-primary: var(--theme-inverse-primary);
+  --color-on-secondary-fixed: var(--theme-on-secondary-fixed);
+  --color-error-container: var(--theme-error-container);
+  --color-primary-container: var(--theme-primary-container);
+}
+
+/* 2. Tema Claro (Padrão) */
 :root {
-  --primary-color: #2563eb;
-  --primary-hover: #1d4ed8;
-  --bg-color: #f8fafc;
-  --card-bg: #ffffff;
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-  --border-color: #e2e8f0;
-  --error-color: #ef4444;
-  --success-color: #10b981;
-  --shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --theme-secondary-container: #e0edff;
+  --theme-surface-container-low: #f8fafc;
+  --theme-secondary-fixed-dim: #2563eb;
+  --theme-on-primary-container: #ffffff;
+  --theme-tertiary-fixed-dim: #d97706;
+  --theme-on-surface-variant: #64748b;
+  --theme-outline-variant: #e2e8f0;
+  --theme-inverse-on-surface: #f8f9ff;
+  --theme-outline: #94a3b8;
+  --theme-secondary: #2563eb;
+  --theme-surface-container-high: #edf2f7;
+  --theme-on-tertiary-container: #78350f;
+  --theme-background: #f8fafc;
+  --theme-surface-bright: #ffffff;
+  --theme-on-error: #ffffff;
+  --theme-on-secondary-fixed-variant: #1e40af;
+  --theme-on-tertiary: #ffffff;
+  --theme-surface-tint: #2563eb;
+  --theme-on-tertiary-fixed-variant: #92400e;
+  --theme-surface-variant: #f1f5f9;
+  --theme-tertiary-container: #fef3c7;
+  --theme-on-tertiary-fixed: #78350f;
+  --theme-tertiary-fixed: #fde68a;
+  --theme-error: #ef4444;
+  --theme-on-error-container: #7f1d1d;
+  --theme-on-secondary: #ffffff;
+  --theme-primary: #2563eb;
+  --theme-on-primary: #ffffff;
+  --theme-surface-dim: #f1f5f9;
+  --theme-surface-container-highest: #e2e8f0;
+  --theme-primary-fixed-dim: #93c5fd;
+  --theme-surface: #ffffff;
+  --theme-on-surface: #0f172a;
+  --theme-on-primary-fixed: #1e3a8a;
+  --theme-inverse-surface: #0f172a;
+  --theme-on-background: #0f172a;
+  --theme-surface-container-lowest: #ffffff;
+  --theme-on-primary-fixed-variant: #1d4ed8;
+  --theme-tertiary: #d97706;
+  --theme-secondary-fixed: #dbeafe;
+  --theme-primary-fixed: #dbeafe;
+  --theme-surface-container: #ffffff;
+  --theme-on-secondary-container: #1d4ed8;
+  --theme-inverse-primary: #93c5fd;
+  --theme-on-secondary-fixed: #172554;
+  --theme-error-container: #fee2e2;
+  --theme-primary-container: #2563eb;
 }
 
-html {
-  scroll-behavior: smooth;
+/* 3. Tema Escuro (Ativado via classe .dark) */
+.dark {
+  --theme-secondary-container: #03497a;
+  --theme-surface-container-low: #131b2e;
+  --theme-secondary-fixed-dim: #9ccaff;
+  --theme-on-primary-container: #eeefff;
+  --theme-tertiary-fixed-dim: #ffb95f;
+  --theme-on-surface-variant: #c3c6d7;
+  --theme-outline-variant: #434655;
+  --theme-inverse-on-surface: #283044;
+  --theme-outline: #8d90a0;
+  --theme-secondary: #9ccaff;
+  --theme-surface-container-high: #222a3d;
+  --theme-on-tertiary-container: #ffeedd;
+  --theme-background: #0b1326;
+  --theme-surface-bright: #31394d;
+  --theme-on-error: #690005;
+  --theme-on-secondary-fixed-variant: #03497a;
+  --theme-on-tertiary: #472a00;
+  --theme-surface-tint: #b4c5ff;
+  --theme-on-tertiary-fixed-variant: #653e00;
+  --theme-surface-variant: #2d3449;
+  --theme-tertiary-container: #996100;
+  --theme-on-tertiary-fixed: #2a1700;
+  --theme-tertiary-fixed: #ffddb8;
+  --theme-error: #ffb4ab;
+  --theme-on-error-container: #ffdad6;
+  --theme-on-secondary: #003257;
+  --theme-primary: #b4c5ff;
+  --theme-on-primary: #002a78;
+  --theme-surface-dim: #0b1326;
+  --theme-surface-container-highest: #2d3449;
+  --theme-primary-fixed-dim: #b4c5ff;
+  --theme-surface: #0b1326;
+  --theme-on-surface: #dae2fd;
+  --theme-on-primary-fixed: #00174b;
+  --theme-inverse-surface: #dae2fd;
+  --theme-on-background: #dae2fd;
+  --theme-surface-container-lowest: #060e20;
+  --theme-on-primary-fixed-variant: #003ea8;
+  --theme-tertiary: #ffb95f;
+  --theme-secondary-fixed: #d0e4ff;
+  --theme-primary-fixed: #dbe1ff;
+  --theme-surface-container: #171f33;
+  --theme-on-secondary-container: #87b9f0;
+  --theme-inverse-primary: #0053db;
+  --theme-on-secondary-fixed: #001d35;
+  --theme-error-container: #93000a;
+  --theme-primary-container: #2563eb;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-}
+/* 4. Estilos Base e Sobrescritas */
+@layer base {
 
-body {
-  font-family: 'Livvic', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-main);
-  line-height: 1.6;
-}
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
 
-.container {
-  width: min(90%, 979px);
-  margin: 2rem auto;
-}
+  body {
+    overscroll-behavior: none;
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
 
-.card {
-  background: var(--card-bg);
-  border-radius: 12px;
-  padding: 1.25rem 2rem;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border-color);
-  transition: transform 0.2s;
-}
-.card:hover {
-  transform: translateY(-2px);
-}
+  main> :first-child {
+    margin-top: 0 !important;
+  }
 
-button {
-  cursor: pointer;
-  background: none;
-  color: white;
-  border-radius: 0.5rem;
-  border: none;
-  padding: 0.5rem;
-}
-
-input {
-  border-radius: 0.5rem;
-  border: 1px solid var(--border-color);
-  padding: 0.5rem;
-  width: 100%;
-  height: 2.75rem;
-}
-
-input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-}
-
-article[data-view='list'] .actions button {
-  @media (min-width: 48rem) {
-    width: max-content;
+  main> :last-child {
+    margin-bottom: 0 !important;
   }
 }
 
-#toast-container {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  z-index: 9999;
-}
-
-.toast {
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  color: white;
-  font-weight: 500;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  animation: slideIn 0.3s ease forwards;
-}
-
-.toast-success {
-  background: #10b981;
-}
-.toast-error {
-  background: #ef4444;
-}
-.toast-info {
-  background: #3b82f6;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.fade-out {
-  animation: fadeOut 0.5s ease forwards;
-}
-
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    transform: scale(0.95);
-  }
+::-webkit-scrollbar {
+  display: none;
 }
