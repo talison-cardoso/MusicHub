@@ -1,0 +1,68 @@
+---
+import socialsData from '../data/socials.json';
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {
+    socialsData.map((social) => (
+      <div class="group relative bg-surface-container-low hover:bg-surface-container rounded-xl p-6 shadow-md transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between">
+        <div class="flex items-start justify-between gap-4">
+          <div
+            class={`flex items-center justify-center ${social.iconContainerClass}`}
+          >
+            <img src={social.iconSrc} alt={`Ícone do ${social.name}`} />
+          </div>
+          <span
+            class={`px-3 py-1 rounded-full font-label-md text-label-md uppercase tracking-wider ${social.badgeClass}`}
+          >
+            {social.badge}
+          </span>
+        </div>
+
+        <div class="mt-8 flex flex-col gap-2">
+          <div class="flex items-center gap-2">
+            <h2 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">
+              {social.name}
+            </h2>
+            <img src="/verified.svg" alt="Ícone de verificação" />
+          </div>
+          <p class="font-body-md text-body-md text-on-surface-variant">
+            {social.description}
+          </p>
+
+          {/* <div class="flex items-center gap-4 text-on-surface-variant font-label-md text-label-md mt-2">
+            {social.stats.map((stat) => (
+              <span class="flex items-center gap-1">
+                <span class="outlined text-[16px]">
+                  <img src={stat.icon} alt={`Ícone do ${stat.text}`} />
+                </span>
+                {stat.text}
+              </span>
+            ))}
+          </div> */}
+        </div>
+
+        <div class="mt-8 pt-4 flex items-center justify-between">
+          <span class="font-label-md text-label-md text-on-surface-variant group-hover:text-on-surface transition-colors">
+            {social.handle}
+          </span>
+          <a
+            class="flex items-center justify-center gap-2 bg-surface-container-high group-hover:bg-primary-container text-on-surface group-hover:text-on-primary-container font-label-lg text-label-lg px-4 py-2 rounded-full transition-all duration-200"
+            href={social.link}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {social.ctaText}
+
+            <svg width="1em" height="1em" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M6.4 18L5 16.6L14.6 7H6V5h12v12h-2V8.4z"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    ))
+  }
+</div>
