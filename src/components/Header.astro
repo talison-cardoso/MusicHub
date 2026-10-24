@@ -81,13 +81,28 @@ const activeClass =
         class="p-2.5 rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors"
       >
         {/* Ícone de Sol (visível no Dark) */}
-        <span class="material-symbols-outlined text-[20px] hidden dark:block">
-          light_mode
-        </span>
+        <div class="text-[20px] hidden dark:block">
+          <svg width="1em" height="1em" viewBox="0 0 24 24"
+            ><path
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M12 18a6 6 0 1 0 0-12a6 6 0 0 0 0 12m10-6h1M12 2V1m0 22v-1m8-2l-1-1m1-15l-1 1M4 20l1-1M4 4l1 1m-4 7h1"
+            ></path></svg
+          >
+        </div>
         {/* Ícone de Lua (visível no Light) */}
-        <span class="material-symbols-outlined text-[20px] block dark:hidden">
-          dark_mode
-        </span>
+        <div class="text-[20px] block dark:hidden">
+          <svg width="1em" height="1em" viewBox="0 0 24 24"
+            ><path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M11.0174 2.80157C6.37072 3.29221 2.75 7.22328 2.75 12C2.75 17.1086 6.89137 21.25 12 21.25C16.7767 21.25 20.7078 17.6293 21.1984 12.9826C19.8717 14.6669 17.8126 15.75 15.5 15.75C11.4959 15.75 8.25 12.5041 8.25 8.5C8.25 6.18738 9.33315 4.1283 11.0174 2.80157ZM1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C12.7166 1.25 13.0754 1.82126 13.1368 2.27627C13.196 2.71398 13.0342 3.27065 12.531 3.57467C10.8627 4.5828 9.75 6.41182 9.75 8.5C9.75 11.6756 12.3244 14.25 15.5 14.25C17.5882 14.25 19.4172 13.1373 20.4253 11.469C20.7293 10.9658 21.286 10.804 21.7237 10.8632C22.1787 10.9246 22.75 11.2834 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12Z"
+              clip-rule="evenodd"></path></svg
+          >
+        </div>
       </button>
 
       <a
@@ -101,8 +116,17 @@ const activeClass =
         class="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer"
         title={isLogged ? 'Usuário logado' : 'Visitante'}
       >
-        <span class="material-symbols-outlined text-on-primary text-[18px]">
-          person
+        <span class="text-on-primary text-[18px]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+            ><title>user-outline</title><path
+              fill="currentColor"
+              d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 2a2 2 0 0 0-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2m0 7c2.67 0 8 1.33 8 4v3H4v-3c0-2.67 5.33-4 8-4m0 1.9c-2.97 0-6.1 1.46-6.1 2.1v1.1h12.2V17c0-.64-3.13-2.1-6.1-2.1"
+            ></path></svg
+          >
         </span>
       </div>
     </div>
