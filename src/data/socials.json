@@ -1,0 +1,135 @@
+[
+    {
+        "id": "soundcloud",
+        "name": "SoundCloud",
+        "badge": "Demos & Unreleased",
+        "badgeClass": "bg-surface-container-high text-tertiary-fixed",
+        "iconType": "image",
+        "iconSrc": "/soundcloud.svg",
+        "iconContainerClass": "size-14 p-2 rounded-xl bg-tertiary-container/30 text-tertiary shadow-sm",
+        "description": "Faixas exclusivas, instrumentais experimentais e prévias inéditas antes dos lançamentos oficiais.",
+        "stats": [
+            {
+                "icon": "/podcast.svg",
+                "text": "34 Faixas"
+            },
+            {
+                "icon": "/headphones.svg",
+                "text": "410K Plays"
+            }
+        ],
+        "handle": "@youngnisioo",
+        "link": "https://on.soundcloud.com/5VMKxLNwnRcTXskEXL",
+        "ctaText": "Ouvir Faixas"
+    },
+    {
+        "id": "youtube",
+        "name": "YouTube",
+        "badge": "Canal Oficial",
+        "badgeClass": "bg-surface-container-high text-error",
+        "iconSrc": "/youtube.svg",
+        "iconContainerClass": "w-14 h-14 rounded-xl bg-error-container/40 text-error shadow-sm",
+        "description": "Videoclipes em 4K, sessões acústicas de estúdio, documentários de turnê e estreias ao vivo.",
+        "stats": [
+            {
+                "icon": "/movie.svg",
+                "text": "19 Clipes"
+            },
+            {
+                "icon": "/eye.svg",
+                "text": "1.2M Views"
+            }
+        ],
+        "handle": "@youngnisioo",
+        "link": "https://www.youtube.com/@youngnisioo",
+        "ctaText": "Ver Clipes"
+    },
+    {
+        "id": "whatsapp",
+        "name": "WhatsApp",
+        "badge": "Grupo Oficial",
+        "badgeClass": "bg-surface-container-high text-secondary",
+        "iconSrc": "/whatsapp.svg",
+        "iconContainerClass": "w-14 h-14 rounded-xl bg-secondary-container/40 text-secondary shadow-sm",
+        "description": "Grupo oficial de fãs, cronograma de shows regionais, eventos oficiais e fórum de notícias.",
+        "stats": [
+            {
+                "icon": "groups",
+                "text": "78K Mensais"
+            },
+            {
+                "icon": "album",
+                "text": "3 Álbuns"
+            }
+        ],
+        "handle": "Young Nisioo",
+        "link": "https://wa.me/qr/BJ4AAYXZ2TYCB1",
+        "ctaText": "Perfil Artista"
+    },
+    {
+        "id": "instagram",
+        "name": "Instagram",
+        "badge": "Visual Diary",
+        "badgeClass": "bg-surface-container-high text-primary",
+        "iconSrc": "/instagram.svg",
+        "iconContainerClass": "w-14 h-14 rounded-xl bg-surface-variant text-on-surface-variant group-hover:text-primary shadow-sm",
+        "description": "Fotos exclusivas da tour, ensaios de moda urbana, datas de apresentações e rotina de criação nos stories.",
+        "stats": [
+            {
+                "icon": "perm_media",
+                "text": "428 Posts"
+            },
+            {
+                "icon": "favorite",
+                "text": "94K Fãs"
+            }
+        ],
+        "handle": "@ani_sio_",
+        "link": "https://www.instagram.com/ani_sio_",
+        "ctaText": "Seguir Perfil"
+    },
+    {
+        "id": "tiktok",
+        "name": "TikTok",
+        "badge": "Viral & Trends",
+        "badgeClass": "bg-surface-container-high text-on-surface",
+        "iconSrc": "/tiktok.svg",
+        "iconContainerClass": "w-14 h-14 rounded-xl bg-surface-container-highest text-on-surface shadow-sm",
+        "description": "Trechos antecipados, reações aos versos, duetos com fãs e trends oficiais das tracks mais recentes.",
+        "stats": [
+            {
+                "icon": "thumb_up",
+                "text": "1.8M Likes"
+            },
+            {
+                "icon": "trending_up",
+                "text": "62K Fãs"
+            }
+        ],
+        "handle": "@young_nisioo",
+        "link": "https://www.tiktok.com/@young_nisioo",
+        "ctaText": "Ver Vídeos"
+    },
+    {
+        "id": "facebook",
+        "name": "Facebook",
+        "badge": "Comunidade",
+        "badgeClass": "bg-surface-container-high text-secondary-fixed-dim",
+        "iconSrc": "/facebook.svg",
+        "iconContainerClass": "w-14 h-14 rounded-xl bg-secondary-container/30 text-secondary-fixed-dim shadow-sm",
+        "description": "Comunidade oficial de fãs, cronograma de shows regionais, eventos oficiais e fórum de notícias.",
+        "stats": [
+            {
+                "icon": "public",
+                "text": "Grupo Oficial"
+            },
+            {
+                "icon": "forum",
+                "text": "15K Membros"
+            }
+        ],
+        "handle": "/Anisio-Fanuel",
+        "link": "https://www.facebook.com/share/1EvzYJNKCY/",
+        "ctaText": "Acessar"
+    }
+]

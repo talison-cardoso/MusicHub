@@ -1,105 +1,168 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '@/layouts/Layout.astro';
+import SocialCard from '@/components/SocialCard.astro';
 ---
 
 <Layout>
-  <h1>Minhas redes sociais</h1>
-  <section class="links-page">
-    <a
-      href="https://on.soundcloud.com/5VMKxLNwnRcTXskEXL"
-      class="card soundcloud"
+  <!-- <main class="w-full pt-20 bg-background"> -->
+  <section class="relative w-full overflow-hidden px-6 lg:px-12 pt-36 pb-16">
+    <div
+      class="absolute -top-32 left-1/2 -translate-x-1/2 w-180 h-145 bg-linear-to-b from-primary-container/20 via-secondary-container/10 to-transparent blur-3xl pointer-events-none -z-10 rounded-full"
     >
-      <img src="/soundcloud.svg" alt="Ícone do SoundCloud" />
-      SoundCloud
-    </a>
+    </div>
 
-    <a
-      href="https://youtube.com/@youngnisioo?si=NWgPvL1BfH_To2l1"
-      class="card youtube"
-    >
-      <img src="/youtube.svg" alt="Ícone do YouTube" />
-      YouTube
-    </a>
+    <div class="max-w-7xl mx-auto flex flex-col gap-12">
+      <header
+        class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-8"
+      >
+        <div class="flex flex-col gap-3 max-w-2xl">
+          <span
+            class="inline-flex items-center gap-1.5 w-fit px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-md text-label-md tracking-wider uppercase"
+          >
+            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+            Canais Oficiais Verificados
+          </span>
 
-    <a href="https://www.facebook.com/share/1EvzYJNKCY/" class="card facebook">
-      <img src="/facebook.svg" alt="Ícone do Facebook" />
-      Facebook
-    </a>
+          <h1
+            class="font-headline-lg text-headline-lg text-on-surface tracking-tight uppercase"
+          >
+            Minhas Redes Sociais <br class="hidden sm:inline" />
+            <span class="text-secondary">&amp; Conexões Globais</span>
+          </h1>
 
-    <a
-      href="https://www.instagram.com/ani_sio_?utm_source=qr&igsh=OTV6NGc4ZTluZW1u"
-      class="card instagram"
-    >
-      <img src="/instagram.svg" alt="Ícone do Instagram" />
-      Instagram
-    </a>
+          <p
+            class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed"
+          >
+            Acompanhe lançamentos, bastidores de estúdio, videoclipes exclusivos
+            e entre em contato direto com a produção do Young Nisioo nas
+            plataformas oficiais.
+          </p>
+        </div>
 
-    <a href="https://wa.me/qr/BJ4AAYXZ2TYCB1" class="card whatsapp">
-      <img src="/whatsapp.svg" alt="Ícone do WhatsApp" />
-      Whatsapp
-    </a>
+        <div
+          class="grid grid-cols-3 gap-3 self-start lg:self-auto w-full sm:w-auto"
+        >
+          <article
+            class="bg-surface-container-low p-4 rounded-xl shadow-md flex flex-col justify-between min-w-26"
+          >
+            <strong
+              class="font-stat-counter text-stat-counter text-on-surface tracking-tight"
+              >4K+</strong
+            >
+            <span
+              class="font-label-md text-label-md text-on-surface-variant uppercase mt-1"
+              >Seguidores</span
+            >
+          </article>
 
-    <a
-      href="https://www.tiktok.com/@young_nisioo?_r=1&_t=ZS-943fKuu2vPl"
-      class="card tiktok"
-    >
-      <img src="/tiktok.svg" alt="Ícone do TikTok" />
-      TikTok
-    </a>
+          <article
+            class="bg-surface-container-low p-4 rounded-xl shadow-md flex flex-col justify-between min-w-26"
+          >
+            <strong
+              class="font-stat-counter text-stat-counter text-primary tracking-tight"
+              >10K</strong
+            >
+            <span
+              class="font-label-md text-label-md text-on-surface-variant uppercase mt-1"
+              >Streams</span
+            >
+          </article>
+
+          <article
+            class="bg-surface-container-low p-4 rounded-xl shadow-md flex flex-col justify-between min-w-26"
+          >
+            <strong
+              class="font-stat-counter text-stat-counter text-tertiary tracking-tight"
+              >06</strong
+            >
+            <span
+              class="font-label-md text-label-md text-on-surface-variant uppercase mt-1"
+              >Canais</span
+            >
+          </article>
+        </div>
+      </header>
+
+      <SocialCard />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2 pb-6">
+        <article
+          class="flex items-center gap-4 bg-surface-container-low p-4 rounded-xl"
+        >
+          <div
+            class="w-10 h-10 shrink-0 rounded-full bg-surface-container-high flex items-center justify-center text-primary"
+          >
+            <svg width="1em" height="1em" viewBox="0 0 24 24">
+              <title>outline-verified-user</title>
+              <path
+                fill="currentColor"
+                d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12c5.16-1.26 9-6.45 9-12V5zm7 10c0 4.52-2.98 8.69-7 9.93c-4.02-1.24-7-5.41-7-9.93V6.3l7-3.11l7 3.11zm-11.59.59L6 13l4 4l8-8l-1.41-1.42L10 14.17z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="font-label-lg text-label-lg text-on-surface">
+              Links Autênticos
+            </h2>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">
+              Protegidos contra perfis clonados
+            </p>
+          </div>
+        </article>
+
+        <article
+          class="flex items-center gap-4 bg-surface-container-low p-4 rounded-xl"
+        >
+          <div
+            class="w-10 h-10 shrink-0 rounded-full bg-surface-container-high flex items-center justify-center text-primary"
+          >
+            <svg width="1em" height="1em" viewBox="0 0 24 24"
+              ><title>sync-outline</title><path
+                fill="currentColor"
+                d="M4 20v-2h2.75l-.4-.35q-1.3-1.15-1.825-2.625T4 12.05q0-2.775 1.662-4.938T10 4.25v2.1Q8.2 7 7.1 8.563T6 12.05q0 1.125.425 2.188T7.75 16.2l.25.25V14h2v6zm10-.25v-2.1q1.8-.65 2.9-2.212T18 11.95q0-1.125-.425-2.187T16.25 7.8L16 7.55V10h-2V4h6v2h-2.75l.4.35q1.225 1.225 1.788 2.663T20 11.95q0 2.775-1.662 4.938T14 19.75"
+              ></path></svg
+            >
+          </div>
+          <div>
+            <h2 class="font-label-lg text-label-lg text-on-surface">
+              Feed Sempre Atualizado
+            </h2>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">
+              Sincronizado a cada novo lançamento
+            </p>
+          </div>
+        </article>
+
+        <article
+          class="flex items-center gap-4 bg-surface-container-low p-4 rounded-xl"
+        >
+          <div
+            class="w-10 h-10 shrink-0 rounded-full bg-surface-container-high flex items-center justify-center text-primary"
+          >
+            <svg width="1em" height="1em" viewBox="0 0 256 256"
+              ><title>calendar-check-light</title><path
+                fill="currentColor"
+                d="M208 34h-26V24a6 6 0 0 0-12 0v10H86V24a6 6 0 0 0-12 0v10H48a14 14 0 0 0-14 14v160a14 14 0 0 0 14 14h160a14 14 0 0 0 14-14V48a14 14 0 0 0-14-14M48 46h26v10a6 6 0 0 0 12 0V46h84v10a6 6 0 0 0 12 0V46h26a2 2 0 0 1 2 2v34H46V48a2 2 0 0 1 2-2m160 164H48a2 2 0 0 1-2-2V94h164v114a2 2 0 0 1-2 2m-39.76-86.24a6 6 0 0 1 0 8.48l-48 48a6 6 0 0 1-8.48 0l-24-24a6 6 0 0 1 8.48-8.48L116 167.51l43.76-43.75a6 6 0 0 1 8.48 0"
+              ></path></svg
+            >
+          </div>
+          <div>
+            <h2 class="font-label-lg text-label-lg text-on-surface">
+              Agenda <span class="ano"></span> Aberta
+            </h2>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">
+              Disponibilidade para festivais &amp; clubs
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
   </section>
+  <!-- </main> -->
 </Layout>
 
-<style>
-  h1 {
-    margin-bottom: 2rem;
-  }
-  .links-page {
-    a {
-      margin-bottom: 1rem;
-      display: grid;
+<script>
+  const ano = document.querySelector('.ano') as HTMLElement;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: left;
-
-      img {
-        width: 20px;
-        height: 20px;
-        margin-right: 0.75rem;
-      }
-    }
-
-    .soundcloud {
-      background-color: #f8671e;
-    }
-    .youtube {
-      background-color: #f12929;
-    }
-    .facebook {
-      background-color: #3283ed;
-    }
-    .instagram {
-      background: linear-gradient(
-        45deg,
-        #f09433 0%,
-        #e6683c 25%,
-        #dc2743 50%,
-        #cc2366 75%,
-        #bc1888 100%
-      );
-    }
-    .whatsapp {
-      background-color: #25d366;
-    }
-    .tiktok {
-      background-color: #010101;
-    }
-
-    .card:hover {
-      filter: brightness(1.2);
-      transform: scale(1.02);
-    }
-  }
-</style>
+  ano.textContent = new Date().getFullYear().toString();
+</script>
