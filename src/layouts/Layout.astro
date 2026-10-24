@@ -2,6 +2,7 @@
 import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import '../styles/global.css';
+import Footer from '@/components/Footer.astro';
 
 const { showHeader = true, title = 'Rapper Young Nísioo' } = Astro.props;
 ---
@@ -32,6 +33,7 @@ const { showHeader = true, title = 'Rapper Young Nísioo' } = Astro.props;
     <main class="container">
       <slot />
     </main>
+    <Footer />
   </body>
 </html>
 
