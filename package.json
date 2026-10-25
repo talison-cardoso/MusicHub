@@ -15,6 +15,7 @@
     "format": "prettier --write \"**/*.{js,ts,astro,md,json}\""
   },
   "dependencies": {
+    "@astrojs/preact": "^6.1.1",
     "@astrojs/vercel": "^10.0.3",
     "@aws-sdk/client-s3": "^3.1022.0",
     "@aws-sdk/s3-request-presigner": "^3.1022.0",
@@ -23,6 +24,7 @@
     "bcryptjs": "^3.0.3",
     "jose": "^6.2.2",
     "mongoose": "^9.3.3",
+    "preact": "^11.0.2",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {

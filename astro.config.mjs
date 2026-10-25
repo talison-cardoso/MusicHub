@@ -4,6 +4,8 @@ import vercel from '@astrojs/vercel';
 
 import tailwindcss from '@tailwindcss/vite';
 
+import preact from '@astrojs/preact';
+
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
@@ -12,4 +14,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
+  integrations: [preact()],
 });
