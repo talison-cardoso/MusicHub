@@ -25,7 +25,8 @@
     "jose": "^6.2.2",
     "mongoose": "^9.3.3",
     "preact": "^11.0.2",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "vercel": "^65.2.0"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
