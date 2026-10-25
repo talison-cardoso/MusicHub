@@ -1,49 +1,153 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import MusicCard from '../components/MusicCard.astro';
-import { Song } from '@/lib/models/Song';
-import { connectDB } from '@/lib/mongodb';
-
-await connectDB();
-const songs = await Song.find().sort({ createdAt: -1 });
+import Layout from '@/layouts/Layout.astro';
+import EpGrid from '@/components/EpGrid';
+import ReleaseList from '@/components/ReleaseList';
 ---
 
-<Layout title="Minha Biblioteca">
-  <h1>Lançamentos</h1>
-  <div id="music-container" class="list">
-    {
-      songs.map((song) => (
-        <MusicCard
-          id={song.id}
-          title={song.title}
-          fileKey={song.fileKey}
-          createdAt={song.createdAt}
-          isAdmin={false}
-        />
-      ))
-    }
+<Layout>
+  <!-- Dynamic Atmospheric Glow Backgrounds -->
+  <div class="relative w-full overflow-hidden pt-36">
+    <div
+      class="absolute -top-36 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary-container/15 rounded-full blur-[128px] pointer-events-none"
+    >
+    </div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-10 lg:py-16">
+      <!-- Top Editorial Header & Discovery Bar -->
+      <div
+        class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-10"
+      >
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <span
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-md text-label-md"
+            >
+              <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"
+              ></span>
+              Discografia Oficial • Young Nisioo
+            </span>
+            <span
+              class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest hidden sm:inline-block"
+              >2026 Archive</span
+            >
+          </div>
+          <h1
+            class="font-headline-lg text-headline-lg tracking-tight text-on-surface uppercase"
+          >
+            Lançamentos <span class="text-on-surface-variant font-normal"
+              >&amp; Obras</span
+            >
+          </h1>
+          <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">
+            Acesso direto aos masters oficiais, gravações de estúdio,
+            instrumentais e versões exclusivas para download direto em alta
+            fidelidade.
+          </p>
+        </div>
+        <!-- Metric Counter Badges -->
+        <div
+          class="flex items-center gap-4 sm:gap-6 bg-surface-container-low p-4 rounded-xl shadow-sm self-start lg:self-auto"
+        >
+          <div class="flex flex-col">
+            <span class="font-stat-counter text-stat-counter text-on-surface"
+              >148K</span
+            >
+            <span
+              class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider"
+              >Downloads</span
+            >
+          </div>
+          <div class="w-px h-8 bg-surface-container-highest"></div>
+          <div class="flex flex-col">
+            <span class="font-stat-counter text-stat-counter text-secondary"
+              >24</span
+            >
+            <span
+              class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider"
+              >Faixas Oficiais</span
+            >
+          </div>
+          <div class="w-px h-8 bg-surface-container-highest"></div>
+          <div class="flex flex-col">
+            <span class="font-stat-counter text-stat-counter text-tertiary"
+              >3</span
+            >
+            <span
+              class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider"
+              >Projetos EP</span
+            >
+          </div>
+        </div>
+      </div>
+      <!--  Filter Capsule Row & Quick Search -->
+      <div
+        class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 py-4 mb-8"
+      >
+      </div>
 
-    {songs.length === 0 && <p>Nenhuma música encontrada.</p>}
+      <!-- XXX: ReleaseList Component -->
+      <section class="grid grid-cols-1 gap-4 mb-10" id="releaseList">
+        <ReleaseList client:load />
+      </section>
+
+      <!-- Feature Highlight Bento / Projects & EPs Section -->
+      <div class="mt-16 pt-12">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8"
+        >
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="material-symbols-outlined text-secondary text-[20px]"
+                >album</span
+              >
+              <span
+                class="font-label-md text-label-md text-secondary uppercase tracking-widest"
+                >Compilações &amp; Discos</span
+              >
+            </div>
+            <h2
+              class="font-headline-lg text-headline-lg text-on-surface tracking-tight uppercase"
+            >
+              EPs em Destaque
+            </h2>
+          </div>
+        </div>
+
+        <!-- XXX: EpGrid Component -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <EpGrid />
+        </div>
+      </div>
+    </div>
   </div>
+  <!-- Interactive Client-side Script for Quick Audio State Feedback -->
+  <script>
+    // function toggleAudio(btn) {
+    //   const icon = btn.querySelector('.material-symbols-outlined');
+    //   if (icon) {
+    //     if (icon.innerText === 'play_circle' || icon.innerText === 'volume_up') {
+    //       icon.innerText = 'pause_circle';
+    //       btn.classList.add('text-primary');
+    //     } else {
+    //       icon.innerText = btn.getAttribute('title') ? 'volume_up' : 'play_circle';
+    //       btn.classList.remove('text-primary');
+    //     }
+    //   }
+    // }
+
+    // Filter Buttons Interaction
+    document
+      .querySelectorAll('#categoryFilterContainer button')
+      .forEach((button) => {
+        button.addEventListener('click', () => {
+          document
+            .querySelectorAll('#categoryFilterContainer button')
+            .forEach((b) => {
+              b.className =
+                'px-5 py-2 rounded-full font-label-lg text-label-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all';
+            });
+          button.className =
+            'px-5 py-2 rounded-full font-label-lg text-label-lg bg-primary-container text-on-primary-container transition-all shadow-sm';
+        });
+      });
+  </script>
 </Layout>
-
-<style>
-  h1 {
-    margin-bottom: 2rem;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
-    padding: 2rem 0;
-  }
-  .list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-</style>
-
-<script>
-  import '../scripts/music-action.ts';
-</script>

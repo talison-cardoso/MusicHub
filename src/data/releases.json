@@ -1,0 +1,47 @@
+[
+  {
+    "number": "01",
+    "title": "Teus olhos",
+    "badge": "Novo Single",
+    "badgeClass": "bg-primary-container text-on-primary-container",
+    "date": "29 de maio de 2026",
+    "producer": "Prod. Nisioo Sound",
+    "genre": "Trap / R&B Soul",
+    "duration": "3:42",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAPdTRRp4aul2rOf-iHoPKG3HNHx4Jg0LI9_1D0c16Gl4KwI-AjyH0MfpC4thsbV54M8d6LW1gaz-H7r-jPabVoeSNVhdtCfh4lejps5ydwPV2Ett9iymaeZQ5OOtjjGMwpiOnpoT444wcvxYpgkhHwy69mTlE3SY9gkigf8LrazqXUnm8jbkGCTCVjoyNQYBDkg9egZgy3JB7tSIB60FzzISduLTiv77e-yH_ign0gWL9wsWNgs2YH",
+    "alt": "Dark contemporary hip hop album cover with blue neon silhouette of Young Nisioo",
+    "downloads": "54.2K Baixados",
+    "fileInfo": "MP3 320k • 9.4 MB",
+    "downloadFileName": "Young_Nisioo_Teus_Olhos.mp3"
+  },
+  {
+    "number": "02",
+    "title": "Tá-se Mal Pra Todos",
+    "badge": "Single",
+    "badgeClass": "bg-surface-container-high text-secondary",
+    "date": "5 de maio de 2026",
+    "producer": "Prod. D-Vinci",
+    "genre": "Rap Consciente / Drill",
+    "duration": "2:58",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuB1CYwuS4fkhMbOLhFN8klDYbl2TLI-QeFg9Ow7SK7Z-4OpMr0N4av5ykpZQiH0EmmMZHp30QU_TYtrkNgZLttGek5gz6W-LYk88k-aart5B_hMkQvTdAvglBrw8b281XN6AgdkixDf_E8RSBe0pjD9bxeVMj3FfM1WSGDwKBukWQORQQR4-E2m5jyX9q7k2rqA-Ite5WNtOLqwTDkg4Jng_cVyFFybUKaNnq7GMtE1bFZlNapuAm94",
+    "alt": "Monochrome cinematic portrait cover for street rap single Tá-se Mal Pra Todos",
+    "downloads": "38.9K Baixados",
+    "fileInfo": "MP3 320k • 7.8 MB",
+    "downloadFileName": "Young_Nisioo_Ta_Se_Mal_Pra_Todos.mp3"
+  },
+  {
+    "number": "03",
+    "title": "Cicatrizes de Ouro",
+    "badge": "Top das Paradas",
+    "badgeClass": "bg-surface-container-high text-tertiary",
+    "date": "18 de abril de 2026",
+    "producer": "Prod. BeatMakerX",
+    "genre": "Trap Melódico",
+    "duration": "3:15",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCG7CVrmz-Zka5f-D-Xof9bfZKYdgw_jpzkSIhDIVnsEYpDs3BXyaLnERbf4aQ_dL-DKwQbpcc2M0NgLdphFmbBvgiIZCTFQv4MQ3T1cLLcpRXmPugS3liCFA4OtoAmongXzmGlmFKQDi2Jt9f4_Ok2enPBisTFU3e9VilpLbJgs78zC_uoBhztVy-E48Cd6G57FEOgtM7UBhjVOOfMKzqERxAPUiKn_1IK4iEZ4yKPs1hn7yXNhsSm",
+    "alt": "Abstract metallic album artwork featuring shattered gold leaf on obsidian stone surface",
+    "downloads": "62.1K Baixados",
+    "fileInfo": "MP3 320k • 8.1 MB",
+    "downloadFileName": "Young_Nisioo_Cicatrizes_de_Ouro.mp3"
+  }
+]
